@@ -1,76 +1,42 @@
-Nexora AI Agent
+NEXORA AI AGENT
 
-Nexora is a general-purpose AI agent developed by Sunayana and her team. It accepts natural-language requests, determines what type of task the user wants to perform, and selects an appropriate capability to generate a response.
+Nexora is a general-purpose AI agent developed by Sunayana and her team.
 
-Overview
+It accepts natural-language requests, identifies the type of task, and selects the appropriate capability to generate a response.
 
-Nexora currently provides three main capabilities:
-
-General AI chat
-
-Mathematical calculations
-
-Web search for current information
-
-The project demonstrates a simple agent architecture in which a router analyzes the user request and selects the required capability.
-
-Architecture
-
-User
-  |
-  v
-Nexora Web Interface
-  |
-  v
-Flask Backend
-  |
-  v
-Nexora Router
-  |
-  +----------------+------------------+
-  |                |                  |
-  v                v                  v
-AI Chat        Calculator          Web Search
-  |                |                  |
-  +----------------+------------------+
-                   |
-                   v
-             Final Response
-                   |
-                   v
-                  User
-
-Features
+FEATURES
 
 General AI Chat
 
-Handles normal questions, explanations, coding assistance, learning, writing, brainstorming, and project-related requests.
+Handles questions, explanations, coding assistance, learning, writing, brainstorming, and project-related requests.
 
 Calculator
 
-Detects mathematical requests and sends the expression to the calculator tool instead of relying only on the language model.
+Handles mathematical expressions using a dedicated calculator tool.
 
-Example:
+Example
 
-Calculate 20 + 10 * 50 / 3
+Calculate 245 * 67
 
 Web Search
 
-Routes requests involving current, recent, or changing information to a browser-search capability.
+Handles requests that require current, recent, or changing information.
 
-Example:
+Example
 
 What are the latest AI agent trends in 2026?
 
 Intelligent Routing
 
-The router decides which capability should handle a request.
+Nexora determines which capability should handle the request.
 
-Normal question      -> AI Chat
-Mathematical request -> Calculator
-Current information  -> Web Search
+Normal questions are handled through AI chat.
 
-Technologies
+Mathematical requests are handled through the calculator.
+
+Current-information requests are handled through web search.
+
+TECHNOLOGIES
 
 Python
 
@@ -88,160 +54,80 @@ Git
 
 GitHub
 
-Project Structure
-
-Nexora-AI-Agent/
-|
-├── agent.py
-├── app.py
-├── tools.py
-├── requirements.txt
-├── README.md
-├── .gitignore
-|
-└── frontend/
-    └── index.html
-
-File Description
+PROJECT FILES
 
 agent.py
 
-Contains the core Nexora agent logic.
-
-It handles:
-
-Request routing
-
-General AI chat
-
-Calculator request handling
-
-Web search
-
-Conversation context
-
-Web search fallback handling
+Contains the core Nexora agent logic, including request classification, intelligent routing, AI chat, calculator handling, web search, and conversation handling.
 
 app.py
 
-Runs the Flask backend and connects the frontend to the Nexora agent.
-
-It provides the /chat endpoint used by the web interface.
+Provides the Flask backend and connects the web interface with the Nexora agent.
 
 tools.py
 
-Contains the calculator tool used for mathematical requests.
+Contains the calculator functionality used by Nexora.
 
 frontend/index.html
 
-Contains the Nexora user interface built with HTML, CSS, and JavaScript.
+Contains the web interface built with HTML, CSS, and JavaScript.
 
 requirements.txt
 
-Contains the Python dependencies required to run the project.
+Contains the Python dependencies required by the project.
 
 .gitignore
 
-Prevents sensitive and temporary files from being committed to GitHub.
+Prevents sensitive and temporary files from being committed to the repository.
 
-Setup
+SETUP
 
-1. Clone the repository
-
-git clone <your-repository>
-cd Nexora-AI-Agent
-
-2. Create a virtual environment
-
-Windows:
+Create a virtual environment.
 
 python -m venv venv
 
-Activate it:
+Activate the virtual environment on Windows.
 
 venv\Scripts\activate
 
-3. Install dependencies
+Install the required packages.
 
 pip install -r requirements.txt
 
-4. Configure the Groq API key
-
-Create a .env file in the project root:
+Create a .env file in the project folder and add the Groq API key.
 
 GROQ_API_KEY=your_api_key_here
 
 Do not upload the .env file to GitHub.
 
-5. Run Nexora
+Run the application.
 
 python app.py
 
-Open the application in a browser:
-
-http://127.0.0.1:5000
-
-Example Requests
-
-General AI:
+EXAMPLE REQUESTS
 
 Explain Kubernetes in simple words.
 
-Calculator:
-
-Calculate 245 * 67.
-
-Web Search:
+Calculate 20 + 10 * 50 / 3
 
 What are the latest AI agent trends in 2026?
 
-Project Assistance:
-
 Suggest a simple cloud project for college.
 
-Request Flow
+SECURITY
 
-For a normal question:
+The Groq API key is stored in the .env file and excluded from version control.
 
-User
-  -> Router
-  -> AI Chat
-  -> Response
-
-For a calculation:
-
-User
-  -> Router
-  -> Calculator
-  -> Result
-  -> Response
-
-For current information:
-
-User
-  -> Router
-  -> Web Search
-  -> Search Result
-  -> Response
-
-Security
-
-The Groq API key is stored in .env and excluded from version control.
-
-The following files should not be committed:
+The following should remain local:
 
 .env
-venv/
-__pycache__/
+venv
+pycache
 *.pyc
 
-Never place an API key directly inside Python, HTML, CSS, or JavaScript source code.
+Never place API keys directly in source code.
 
-Current Limitations
-
-Nexora currently focuses on text-based interaction and provides three main capabilities: AI chat, calculation, and web search.
-
-Possible future additions include:
+FUTURE IMPROVEMENTS
 
 PDF and document analysis
 
@@ -253,16 +139,12 @@ Conversation history
 
 User authentication
 
-Additional external tools
+Additional tools
 
 Cloud deployment
 
 Multi-agent workflows
 
-Development
-
-Nexora was developed as a practical project to demonstrate how a language model can be combined with routing logic and external tools to create a useful AI agent.
-
-Developer
+DEVELOPER
 
 Nexora was developed by Sunayana and her team.
