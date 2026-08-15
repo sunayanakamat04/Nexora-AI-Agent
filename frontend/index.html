@@ -1,0 +1,2281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Nexora — AI Agent</title>
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* =====================================================
+   BODY
+===================================================== */
+
+body {
+
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 15% 10%,
+            rgba(145, 125, 255, 0.12),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 80%,
+            rgba(110, 210, 195, 0.10),
+            transparent 30%
+        ),
+        #fafafd;
+
+    color: #20212a;
+
+    height: 100vh;
+
+    overflow: hidden;
+}
+
+
+/* =====================================================
+   APP
+===================================================== */
+
+.app {
+
+    display: flex;
+
+    height: 100vh;
+}
+
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+
+.sidebar {
+
+    width: 255px;
+
+    background:
+        rgba(255,255,255,0.78);
+
+    backdrop-filter:
+        blur(25px);
+
+    border-right:
+        1px solid
+        rgba(30,30,50,0.07);
+
+    padding:
+        24px 17px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    flex-shrink: 0;
+}
+
+
+/* =====================================================
+   BRAND
+===================================================== */
+
+.brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    padding:
+        3px 8px;
+
+    margin-bottom: 30px;
+}
+
+
+.brand-icon {
+
+    width: 42px;
+
+    height: 42px;
+
+    border-radius: 13px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7562f5,
+            #a292ff
+        );
+
+    color: white;
+
+    font-size: 21px;
+
+    box-shadow:
+        0 8px 22px
+        rgba(117,98,245,0.22);
+}
+
+
+.brand-name {
+
+    font-size: 21px;
+
+    font-weight: 750;
+
+    letter-spacing:
+        0.3px;
+
+    color: #242530;
+}
+
+
+.brand-sub {
+
+    font-size: 10px;
+
+    color: #9a9ba6;
+
+    margin-top: 2px;
+}
+
+
+/* =====================================================
+   NEW CHAT
+===================================================== */
+
+.new-chat {
+
+    width: 100%;
+
+    height: 43px;
+
+    border-radius: 12px;
+
+    border:
+        1px solid
+        #e6e5ee;
+
+    background:
+        rgba(255,255,255,0.9);
+
+    color: #41424d;
+
+    font-size: 13px;
+
+    font-weight: 550;
+
+    cursor: pointer;
+
+    transition:
+        all 0.2s;
+
+    box-shadow:
+        0 4px 12px
+        rgba(30,30,50,0.025);
+}
+
+
+.new-chat:hover {
+
+    transform:
+        translateY(-1px);
+
+    border-color:
+        #d7d2f8;
+
+    box-shadow:
+        0 7px 18px
+        rgba(117,98,245,0.09);
+}
+
+
+/* =====================================================
+   SECTION TITLE
+===================================================== */
+
+.section-title {
+
+    font-size: 10px;
+
+    text-transform:
+        uppercase;
+
+    letter-spacing:
+        1.3px;
+
+    color: #a2a3ae;
+
+    margin:
+        30px 8px 10px;
+}
+
+
+/* =====================================================
+   SIDEBAR ITEMS
+===================================================== */
+
+.side-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding:
+        10px 10px;
+
+    border-radius: 10px;
+
+    color: #696b77;
+
+    font-size: 13px;
+
+    cursor: default;
+
+    transition:
+        0.2s;
+}
+
+
+.side-item:hover {
+
+    background:
+        rgba(120,100,245,0.055);
+
+    color: #484956;
+}
+
+
+.side-icon {
+
+    width: 26px;
+
+    height: 26px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 8px;
+
+    background:
+        #f5f4fa;
+
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   SIDEBAR FOOTER
+===================================================== */
+
+.sidebar-footer {
+
+    margin-top: auto;
+
+    padding:
+        12px;
+
+    border-radius: 13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #faf9ff,
+            #f7fbfa
+        );
+
+    border:
+        1px solid
+        #ecebf2;
+}
+
+
+.status-row {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    font-size: 11px;
+
+    color: #737580;
+}
+
+
+.status-dot {
+
+    width: 7px;
+
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #3fbe83;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(63,190,131,0.10);
+}
+
+
+.version {
+
+    font-size: 9px;
+
+    color: #a5a6af;
+
+    margin-top: 7px;
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.main {
+
+    flex: 1;
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header {
+
+    height: 72px;
+
+    padding:
+        0 30px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    background:
+        rgba(255,255,255,0.65);
+
+    backdrop-filter:
+        blur(20px);
+
+    border-bottom:
+        1px solid
+        rgba(30,30,50,0.06);
+
+    flex-shrink: 0;
+}
+
+
+.header-title {
+
+    font-size: 16px;
+
+    font-weight: 650;
+
+    color: #282933;
+}
+
+
+.header-subtitle {
+
+    font-size: 11px;
+
+    color: #a0a1ab;
+
+    margin-top: 3px;
+}
+
+
+.online-pill {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding:
+        7px 11px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(63,190,131,0.06);
+
+    border:
+        1px solid
+        rgba(63,190,131,0.14);
+
+    color: #4a9d78;
+
+    font-size: 10px;
+
+    font-weight: 600;
+}
+
+
+/* =====================================================
+   CHAT
+===================================================== */
+
+.chat {
+
+    flex: 1;
+
+    overflow-y: auto;
+
+    padding:
+        30px 5% 20px;
+
+    scroll-behavior:
+        smooth;
+}
+
+
+/* =====================================================
+   WELCOME
+===================================================== */
+
+.welcome {
+
+    max-width:
+        760px;
+
+    margin:
+        45px auto;
+
+    text-align:
+        center;
+}
+
+
+.welcome-logo {
+
+    width: 76px;
+
+    height: 76px;
+
+    margin:
+        auto;
+
+    border-radius: 24px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7562f5,
+            #a99cff
+        );
+
+    color: white;
+
+    font-size: 31px;
+
+    box-shadow:
+        0 15px 40px
+        rgba(117,98,245,0.20);
+}
+
+
+.welcome h1 {
+
+    margin-top:
+        22px;
+
+    font-size:
+        32px;
+
+    letter-spacing:
+        -0.8px;
+
+    font-weight:
+        720;
+
+    color:
+        #252630;
+}
+
+
+.welcome h1 span {
+
+    background:
+        linear-gradient(
+            90deg,
+            #6f5ce8,
+            #9385ff
+        );
+
+    -webkit-background-clip:
+        text;
+
+    -webkit-text-fill-color:
+        transparent;
+}
+
+
+.welcome p {
+
+    margin-top:
+        11px;
+
+    font-size:
+        14px;
+
+    line-height:
+        1.7;
+
+    color:
+        #9697a2;
+}
+
+
+/* =====================================================
+   SUGGESTIONS
+===================================================== */
+
+.suggestions {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap:
+        10px;
+
+    margin-top:
+        28px;
+
+    text-align:
+        left;
+}
+
+
+.suggestion {
+
+    padding:
+        14px;
+
+    border-radius:
+        14px;
+
+    background:
+        rgba(255,255,255,0.75);
+
+    border:
+        1px solid
+        #e9e8ef;
+
+    cursor:
+        pointer;
+
+    transition:
+        0.2s;
+
+    box-shadow:
+        0 4px 15px
+        rgba(30,30,50,0.025);
+}
+
+
+.suggestion:hover {
+
+    transform:
+        translateY(-2px);
+
+    border-color:
+        #dcd6ff;
+
+    box-shadow:
+        0 8px 22px
+        rgba(117,98,245,0.08);
+}
+
+
+.suggestion-title {
+
+    font-size:
+        12px;
+
+    font-weight:
+        600;
+
+    color:
+        #474852;
+}
+
+
+.suggestion-desc {
+
+    font-size:
+        10px;
+
+    color:
+        #a1a2ab;
+
+    margin-top:
+        4px;
+}
+
+
+/* =====================================================
+   MESSAGE
+===================================================== */
+
+.message {
+
+    width:
+        100%;
+
+    margin-bottom:
+        26px;
+
+    display:
+        flex;
+
+    gap:
+        11px;
+
+    animation:
+        messageIn 0.22s ease;
+}
+
+
+@keyframes messageIn {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(6px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+/* =====================================================
+   NEXORA LEFT
+===================================================== */
+
+.message.agent {
+
+    justify-content:
+        flex-start;
+
+    flex-direction:
+        row;
+}
+
+
+/* =====================================================
+   USER RIGHT
+===================================================== */
+
+.message.user {
+
+    justify-content:
+        flex-end;
+
+    flex-direction:
+        row-reverse;
+}
+
+
+/* =====================================================
+   AVATAR
+===================================================== */
+
+.avatar {
+
+    width:
+        34px;
+
+    min-width:
+        34px;
+
+    height:
+        34px;
+
+    margin-top:
+        2px;
+
+    border-radius:
+        11px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    font-size:
+        13px;
+}
+
+
+.agent-avatar {
+
+    background:
+        linear-gradient(
+            135deg,
+            #7562f5,
+            #a191ff
+        );
+
+    color:
+        white;
+
+    box-shadow:
+        0 5px 14px
+        rgba(117,98,245,0.17);
+}
+
+
+.user-avatar {
+
+    background:
+        #f0f0f4;
+
+    border:
+        1px solid
+        #e2e2e8;
+
+    color:
+        #777985;
+}
+
+
+/* =====================================================
+   CONTENT
+===================================================== */
+
+.message-content {
+
+    max-width:
+        65%;
+
+    font-size:
+        14px;
+
+    line-height:
+        1.7;
+
+    color:
+        #393a44;
+
+    white-space:
+        pre-wrap;
+
+    word-break:
+        break-word;
+}
+
+
+/* =====================================================
+   MESSAGE NAME
+===================================================== */
+
+.message-name {
+
+    font-size:
+        10px;
+
+    font-weight:
+        650;
+
+    color:
+        #a0a1ab;
+
+    margin-bottom:
+        5px;
+}
+
+
+.message.user
+.message-name {
+
+    text-align:
+        right;
+}
+
+
+/* =====================================================
+   NEXORA MESSAGE
+===================================================== */
+
+.message.agent
+.message-content {
+
+    padding:
+        13px 16px;
+
+    background:
+        rgba(255,255,255,0.88);
+
+    border:
+        1px solid
+        #e9e8ef;
+
+    border-radius:
+        5px 16px 16px 16px;
+
+    box-shadow:
+        0 5px 18px
+        rgba(30,30,50,0.035);
+}
+
+
+/* =====================================================
+   USER MESSAGE
+===================================================== */
+
+.message.user
+.message-content {
+
+    padding:
+        13px 16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f0edff,
+            #f5f2ff
+        );
+
+    border:
+        1px solid
+        #e1dcff;
+
+    color:
+        #4a4464;
+
+    border-radius:
+        16px 5px 16px 16px;
+
+    box-shadow:
+        0 5px 18px
+        rgba(117,98,245,0.05);
+
+    text-align:
+        right;
+}
+
+
+/* =====================================================
+   ROUTE
+===================================================== */
+
+.route {
+
+    display:
+        inline-flex;
+
+    margin-top:
+        9px;
+
+    padding:
+        4px 9px;
+
+    border-radius:
+        20px;
+
+    background:
+        #f5f2ff;
+
+    border:
+        1px solid
+        #e5dfff;
+
+    color:
+        #7565c8;
+
+    font-size:
+        9px;
+
+    font-weight:
+        600;
+}
+
+
+.message.user .route {
+
+    float:
+        right;
+}
+
+
+/* =====================================================
+   TYPING
+===================================================== */
+
+.typing {
+
+    display:
+        flex;
+
+    gap:
+        4px;
+
+    padding-top:
+        5px;
+}
+
+
+.typing span {
+
+    width:
+        6px;
+
+    height:
+        6px;
+
+    border-radius:
+        50%;
+
+    background:
+        #aaaab3;
+
+    animation:
+        typing 1.2s infinite;
+}
+
+
+.typing span:nth-child(2) {
+
+    animation-delay:
+        .2s;
+}
+
+
+.typing span:nth-child(3) {
+
+    animation-delay:
+        .4s;
+}
+
+
+@keyframes typing {
+
+    0%,
+    60%,
+    100% {
+
+        opacity:
+            .25;
+
+        transform:
+            translateY(0);
+    }
+
+    30% {
+
+        opacity:
+            1;
+
+        transform:
+            translateY(-3px);
+    }
+}
+
+
+/* =====================================================
+   INPUT
+===================================================== */
+
+.input-wrapper {
+
+    padding:
+        10px 5% 22px;
+
+    background:
+        linear-gradient(
+            to top,
+            #fafafd 80%,
+            transparent
+        );
+}
+
+
+.input-box {
+
+    width:
+        100%;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    padding:
+        6px;
+
+    border-radius:
+        17px;
+
+    background:
+        rgba(255,255,255,0.9);
+
+    border:
+        1px solid
+        #dedde6;
+
+    box-shadow:
+        0 10px 35px
+        rgba(30,30,50,0.07);
+
+    transition:
+        .2s;
+}
+
+
+.input-box:focus-within {
+
+    border-color:
+        #bcb2ff;
+
+    box-shadow:
+        0 10px 35px
+        rgba(117,98,245,0.11);
+}
+
+
+.input-box input {
+
+    flex:
+        1;
+
+    height:
+        44px;
+
+    padding:
+        0 13px;
+
+    border:
+        none;
+
+    outline:
+        none;
+
+    background:
+        transparent;
+
+    color:
+        #30313a;
+
+    font-size:
+        14px;
+}
+
+
+.input-box input::placeholder {
+
+    color:
+        #a5a6af;
+}
+
+
+/* =====================================================
+   SEND
+===================================================== */
+
+.send {
+
+    width:
+        43px;
+
+    height:
+        43px;
+
+    border:
+        none;
+
+    border-radius:
+        13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7562f5,
+            #988aff
+        );
+
+    color:
+        white;
+
+    cursor:
+        pointer;
+
+    font-size:
+        18px;
+
+    transition:
+        .2s;
+
+    box-shadow:
+        0 6px 16px
+        rgba(117,98,245,0.18);
+}
+
+
+.send:hover {
+
+    transform:
+        translateY(-1px)
+        scale(1.02);
+}
+
+
+.send:disabled {
+
+    opacity:
+        .45;
+
+    cursor:
+        not-allowed;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer {
+
+    text-align:
+        center;
+
+    font-size:
+        9px;
+
+    color:
+        #aaaab3;
+
+    margin-top:
+        8px;
+}
+
+
+/* =====================================================
+   SCROLLBAR
+===================================================== */
+
+.chat::-webkit-scrollbar {
+
+    width:
+        6px;
+}
+
+
+.chat::-webkit-scrollbar-track {
+
+    background:
+        transparent;
+}
+
+
+.chat::-webkit-scrollbar-thumb {
+
+    background:
+        #dedee5;
+
+    border-radius:
+        10px;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 750px) {
+
+    .sidebar {
+
+        display:
+            none;
+    }
+
+    .header {
+
+        padding:
+            0 18px;
+    }
+
+    .chat {
+
+        padding:
+            25px 18px;
+    }
+
+    .input-wrapper {
+
+        padding:
+            10px 15px 18px;
+    }
+
+    .suggestions {
+
+        grid-template-columns:
+            1fr;
+    }
+
+    .message-content {
+
+        max-width:
+            82%;
+    }
+
+    .welcome h1 {
+
+        font-size:
+            26px;
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar">
+
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            ✦
+        </div>
+
+        <div>
+
+            <div class="brand-name">
+                Nexora
+            </div>
+
+            <div class="brand-sub">
+                General AI Agent
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="new-chat"
+        onclick="newChat()"
+    >
+
+        ＋ &nbsp; New conversation
+
+    </button>
+
+
+    <div class="section-title">
+        Capabilities
+    </div>
+
+
+    <div class="side-item">
+
+        <div class="side-icon">
+            💬
+        </div>
+
+        General AI Chat
+
+    </div>
+
+
+    <div class="side-item">
+
+        <div class="side-icon">
+            🧮
+        </div>
+
+        Smart Calculator
+
+    </div>
+
+
+    <div class="side-item">
+
+        <div class="side-icon">
+            🌐
+        </div>
+
+        Web Search
+
+    </div>
+
+
+    <div class="section-title">
+        Nexora
+    </div>
+
+
+    <div class="side-item">
+
+        <div class="side-icon">
+            🧠
+        </div>
+
+        Intelligent Routing
+
+    </div>
+
+
+    <div class="side-item">
+
+        <div class="side-icon">
+            ⚡
+        </div>
+
+        Fast Responses
+
+    </div>
+
+
+    <div class="sidebar-footer">
+
+        <div class="status-row">
+
+            <span class="status-dot"></span>
+
+            Nexora is online
+
+        </div>
+
+        <div class="version">
+            Nexora AI Agent · v1.0
+        </div>
+
+    </div>
+
+
+</aside>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main">
+
+
+<!-- HEADER -->
+
+<header class="header">
+
+
+    <div>
+
+        <div class="header-title">
+            Nexora
+        </div>
+
+        <div class="header-subtitle">
+            Intelligent general-purpose AI agent
+        </div>
+
+    </div>
+
+
+    <div class="online-pill">
+
+        <span class="status-dot"></span>
+
+        Online
+
+    </div>
+
+
+</header>
+
+
+
+<!-- =====================================================
+     CHAT
+===================================================== -->
+
+<section
+    class="chat"
+    id="chat"
+>
+
+
+    <div
+        class="welcome"
+        id="welcome"
+    >
+
+
+        <div class="welcome-logo">
+            ✦
+        </div>
+
+
+        <h1>
+
+            Meet <span>Nexora</span>
+
+        </h1>
+
+
+        <p>
+
+            Your intelligent general-purpose AI agent.
+            Ask questions, calculate, search the web,
+            learn, code and explore.
+
+        </p>
+
+
+        <div class="suggestions">
+
+
+            <div
+                class="suggestion"
+                onclick="useSuggestion('Explain artificial intelligence in simple words')"
+            >
+
+                <div class="suggestion-title">
+                    ✨ Explain something
+                </div>
+
+                <div class="suggestion-desc">
+                    Make complex topics simple
+                </div>
+
+            </div>
+
+
+            <div
+                class="suggestion"
+                onclick="useSuggestion('Calculate 245 * 67')"
+            >
+
+                <div class="suggestion-title">
+                    🧮 Calculate
+                </div>
+
+                <div class="suggestion-desc">
+                    Solve a mathematical problem
+                </div>
+
+            </div>
+
+
+            <div
+                class="suggestion"
+                onclick="useSuggestion('What is Kubernetes?')"
+            >
+
+                <div class="suggestion-title">
+                    ☁️ Learn
+                </div>
+
+                <div class="suggestion-desc">
+                    Understand a technical concept
+                </div>
+
+            </div>
+
+
+            <div
+                class="suggestion"
+                onclick="useSuggestion('What are the latest AI developments?')"
+            >
+
+                <div class="suggestion-title">
+                    🌐 Search the web
+                </div>
+
+                <div class="suggestion-desc">
+                    Find current information
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     INPUT
+===================================================== -->
+
+<div class="input-wrapper">
+
+
+    <div class="input-box">
+
+
+        <input
+            id="message"
+            type="text"
+            placeholder="Message Nexora..."
+            autocomplete="off"
+        >
+
+
+        <button
+            class="send"
+            id="sendButton"
+            onclick="sendMessage()"
+        >
+
+            ↑
+
+        </button>
+
+
+    </div>
+
+
+    <div class="footer">
+
+        Nexora can make mistakes. Verify important information.
+
+    </div>
+
+
+</div>
+
+
+</main>
+
+
+</div>
+
+
+
+<script>
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const input =
+    document.getElementById("message");
+
+const chat =
+    document.getElementById("chat");
+
+const sendButton =
+    document.getElementById("sendButton");
+
+
+
+/* =====================================================
+   SUGGESTION
+===================================================== */
+
+function useSuggestion(text) {
+
+    input.value = text;
+
+    input.focus();
+
+    sendMessage();
+
+}
+
+
+
+/* =====================================================
+   SEND MESSAGE
+===================================================== */
+
+async function sendMessage() {
+
+
+    const message =
+        input.value.trim();
+
+
+    if (!message) {
+
+        return;
+
+    }
+
+
+    const welcome =
+        document.getElementById("welcome");
+
+
+    if (welcome) {
+
+        welcome.remove();
+
+    }
+
+
+    /* USER → RIGHT */
+
+    addMessage(
+        message,
+        "user"
+    );
+
+
+    input.value = "";
+
+    sendButton.disabled = true;
+
+
+    const typingId =
+        addTyping();
+
+
+    try {
+
+
+        const response =
+            await fetch(
+                "/chat",
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json"
+
+                    },
+
+                    body: JSON.stringify({
+
+                        message:
+                            message
+
+                    })
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        removeTyping(
+            typingId
+        );
+
+
+        if (data.error) {
+
+
+            addMessage(
+
+                data.error,
+
+                "agent",
+
+                "ERROR"
+
+            );
+
+
+            return;
+
+        }
+
+
+        /* NEXORA → LEFT */
+
+        addMessage(
+
+            data.response,
+
+            "agent",
+
+            data.route
+
+        );
+
+
+    }
+
+    catch (error) {
+
+
+        removeTyping(
+            typingId
+        );
+
+
+        addMessage(
+
+            "I couldn't connect to Nexora. " +
+            "Please make sure the Flask server is running.",
+
+            "agent",
+
+            "ERROR"
+
+        );
+
+    }
+
+
+    finally {
+
+        sendButton.disabled =
+            false;
+
+        input.focus();
+
+    }
+
+}
+
+
+
+/* =====================================================
+   ADD MESSAGE
+===================================================== */
+
+function addMessage(
+    text,
+    type,
+    route = ""
+) {
+
+
+    const message =
+        document.createElement(
+            "div"
+        );
+
+
+    message.className =
+        "message " + type;
+
+
+    const avatar =
+        document.createElement(
+            "div"
+        );
+
+
+    avatar.className =
+        "avatar " +
+        (
+            type === "agent"
+                ? "agent-avatar"
+                : "user-avatar"
+        );
+
+
+    avatar.textContent =
+        type === "agent"
+            ? "✦"
+            : "U";
+
+
+    const content =
+        document.createElement(
+            "div"
+        );
+
+
+    content.className =
+        "message-content";
+
+
+    const name =
+        document.createElement(
+            "div"
+        );
+
+
+    name.className =
+        "message-name";
+
+
+    name.textContent =
+        type === "agent"
+            ? "Nexora"
+            : "You";
+
+
+    content.appendChild(
+        name
+    );
+
+
+    const textElement =
+        document.createElement(
+            "div"
+        );
+
+
+    textElement.textContent =
+        text;
+
+
+    content.appendChild(
+        textElement
+    );
+
+
+    if (route) {
+
+
+        const routeElement =
+            document.createElement(
+                "div"
+            );
+
+
+        routeElement.className =
+            "route";
+
+
+        routeElement.textContent =
+            getRouteLabel(
+                route
+            );
+
+
+        content.appendChild(
+            routeElement
+        );
+
+    }
+
+
+    message.appendChild(
+        avatar
+    );
+
+
+    message.appendChild(
+        content
+    );
+
+
+    chat.appendChild(
+        message
+    );
+
+
+    scrollToBottom();
+
+}
+
+
+
+/* =====================================================
+   ROUTE
+===================================================== */
+
+function getRouteLabel(route) {
+
+
+    if (
+        route ===
+        "CALCULATOR"
+    ) {
+
+        return "🧮 Calculator";
+
+    }
+
+
+    if (
+        route ===
+        "WEB"
+    ) {
+
+        return "🌐 Web Search";
+
+    }
+
+
+    if (
+        route ===
+        "ERROR"
+    ) {
+
+        return "⚠ Error";
+
+    }
+
+
+    return "💬 AI Chat";
+
+}
+
+
+
+/* =====================================================
+   TYPING
+===================================================== */
+
+function addTyping() {
+
+
+    const id =
+        "typing-" +
+        Date.now();
+
+
+    const message =
+        document.createElement(
+            "div"
+        );
+
+
+    message.className =
+        "message agent";
+
+
+    message.id =
+        id;
+
+
+    const avatar =
+        document.createElement(
+            "div"
+        );
+
+
+    avatar.className =
+        "avatar agent-avatar";
+
+
+    avatar.textContent =
+        "✦";
+
+
+    const content =
+        document.createElement(
+            "div"
+        );
+
+
+    content.className =
+        "message-content";
+
+
+    const name =
+        document.createElement(
+            "div"
+        );
+
+
+    name.className =
+        "message-name";
+
+
+    name.textContent =
+        "Nexora";
+
+
+    const typing =
+        document.createElement(
+            "div"
+        );
+
+
+    typing.className =
+        "typing";
+
+
+    typing.innerHTML =
+        "<span></span>" +
+        "<span></span>" +
+        "<span></span>";
+
+
+    content.appendChild(
+        name
+    );
+
+
+    content.appendChild(
+        typing
+    );
+
+
+    message.appendChild(
+        avatar
+    );
+
+
+    message.appendChild(
+        content
+    );
+
+
+    chat.appendChild(
+        message
+    );
+
+
+    scrollToBottom();
+
+
+    return id;
+
+}
+
+
+
+/* =====================================================
+   REMOVE TYPING
+===================================================== */
+
+function removeTyping(id) {
+
+
+    const element =
+        document.getElementById(
+            id
+        );
+
+
+    if (element) {
+
+        element.remove();
+
+    }
+
+}
+
+
+
+/* =====================================================
+   NEW CHAT
+===================================================== */
+
+function newChat() {
+
+
+    chat.innerHTML = `
+
+        <div
+            class="welcome"
+            id="welcome"
+        >
+
+            <div class="welcome-logo">
+                ✦
+            </div>
+
+            <h1>
+                Meet <span>Nexora</span>
+            </h1>
+
+            <p>
+                Your intelligent general-purpose AI agent.
+                Ask questions, calculate, search the web,
+                learn, code and explore.
+            </p>
+
+            <div class="suggestions">
+
+                <div
+                    class="suggestion"
+                    onclick="useSuggestion('Explain artificial intelligence in simple words')"
+                >
+
+                    <div class="suggestion-title">
+                        ✨ Explain something
+                    </div>
+
+                    <div class="suggestion-desc">
+                        Make complex topics simple
+                    </div>
+
+                </div>
+
+                <div
+                    class="suggestion"
+                    onclick="useSuggestion('Calculate 245 * 67')"
+                >
+
+                    <div class="suggestion-title">
+                        🧮 Calculate
+                    </div>
+
+                    <div class="suggestion-desc">
+                        Solve a mathematical problem
+                    </div>
+
+                </div>
+
+                <div
+                    class="suggestion"
+                    onclick="useSuggestion('What is Kubernetes?')"
+                >
+
+                    <div class="suggestion-title">
+                        ☁️ Learn
+                    </div>
+
+                    <div class="suggestion-desc">
+                        Understand a technical concept
+                    </div>
+
+                </div>
+
+                <div
+                    class="suggestion"
+                    onclick="useSuggestion('What are the latest AI developments?')"
+                >
+
+                    <div class="suggestion-title">
+                        🌐 Search the web
+                    </div>
+
+                    <div class="suggestion-desc">
+                        Find current information
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    input.focus();
+
+}
+
+
+
+/* =====================================================
+   SCROLL
+===================================================== */
+
+function scrollToBottom() {
+
+    chat.scrollTop =
+        chat.scrollHeight;
+
+}
+
+
+
+/* =====================================================
+   ENTER
+===================================================== */
+
+input.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Enter" &&
+            !event.shiftKey
+        ) {
+
+            event.preventDefault();
+
+            sendMessage();
+
+        }
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>
