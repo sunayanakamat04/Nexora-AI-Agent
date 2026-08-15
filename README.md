@@ -1,25 +1,25 @@
 Nexora AI Agent
 
-Nexora is a general-purpose AI agent developed by Sunayana and her team. It is designed to understand a user's request, select the appropriate capability, and return a useful response through a simple web interface.
+Nexora is a general-purpose AI agent developed by Sunayana and her team. It accepts natural-language requests, determines what type of task the user wants to perform, and selects an appropriate capability to generate a response.
 
 Overview
 
-Nexora currently supports three main capabilities:
+Nexora currently provides three main capabilities:
 
-General AI chat for questions, explanations, coding, learning, and project assistance.
+General AI chat
 
-Calculator support for mathematical expressions.
+Mathematical calculations
 
-Web search for current, recent, and changing information.
+Web search for current information
 
-The application uses intelligent routing to decide which capability should handle each request.
+The project demonstrates a simple agent architecture in which a router analyzes the user request and selects the required capability.
 
 Architecture
 
 User
   |
   v
-Web Interface
+Nexora Web Interface
   |
   v
 Flask Backend
@@ -27,82 +27,48 @@ Flask Backend
   v
 Nexora Router
   |
-  +----------+-------------+
-  |          |             |
-  v          v             v
-Chat     Calculator     Web Search
-  |          |             |
-  +----------+-------------+
-             |
-             v
-        Final Response
-             |
-             v
-            User
+  +----------------+------------------+
+  |                |                  |
+  v                v                  v
+AI Chat        Calculator          Web Search
+  |                |                  |
+  +----------------+------------------+
+                   |
+                   v
+             Final Response
+                   |
+                   v
+                  User
 
-Main Components
+Features
 
-agent.py
+General AI Chat
 
-Contains the main Nexora agent logic.
+Handles normal questions, explanations, coding assistance, learning, writing, brainstorming, and project-related requests.
 
-Responsibilities include:
+Calculator
 
-Request classification
+Detects mathematical requests and sends the expression to the calculator tool instead of relying only on the language model.
 
-Intelligent routing
+Example:
 
-Mathematical expression extraction
+Calculate 20 + 10 * 50 / 3
 
-General AI responses
+Web Search
 
-Web search handling
+Routes requests involving current, recent, or changing information to a browser-search capability.
 
-Conversation context
+Example:
 
-Fallback handling for web search model limits
+What are the latest AI agent trends in 2026?
 
-app.py
+Intelligent Routing
 
-Provides the Flask backend.
+The router decides which capability should handle a request.
 
-Responsibilities include:
-
-Serving the frontend
-
-Receiving user messages
-
-Calling the Nexora agent
-
-Returning responses to the browser through the chat API
-
-tools.py
-
-Contains the calculator functionality used by Nexora.
-
-frontend/index.html
-
-Contains the complete web interface.
-
-The interface includes:
-
-Nexora branding
-
-Chat interface
-
-User messages on the right
-
-Nexora responses on the left
-
-Capability indicators
-
-New conversation control
-
-Responsive layout
-
-requirements.txt
-
-Lists the Python packages required to run Nexora.
+Normal question      -> AI Chat
+Mathematical request -> Calculator
+Current information  -> Web Search
 
 Technologies
 
@@ -118,47 +84,71 @@ CSS
 
 JavaScript
 
-Git and GitHub
+Git
 
-How It Works
+GitHub
 
-When a user enters a request, Nexora first analyzes the request.
+Project Structure
 
-For a normal question, it uses the general AI capability.
+Nexora-AI-Agent/
+|
+├── agent.py
+├── app.py
+├── tools.py
+├── requirements.txt
+├── README.md
+├── .gitignore
+|
+└── frontend/
+    └── index.html
 
-For a mathematical request, it routes the request to the calculator.
+File Description
 
-For a request involving current or recent information, it routes the request to web search.
+agent.py
 
-This provides a simple agent architecture in which the system selects a capability based on the user's intent rather than treating every request in exactly the same way.
+Contains the core Nexora agent logic.
 
-Example Requests
+It handles:
 
-Normal AI request:
+Request routing
 
-Explain Kubernetes in simple words.
+General AI chat
 
-Calculator request:
+Calculator request handling
 
-Calculate 20 + 10 * 50 / 3
+Web search
 
-Web search request:
+Conversation context
 
-What are the latest AI agent trends in 2026?
+Web search fallback handling
 
-Developer information request:
+app.py
 
-Who developed you?
+Runs the Flask backend and connects the frontend to the Nexora agent.
 
-Nexora responds:
+It provides the /chat endpoint used by the web interface.
 
-Nexora was developed by Sunayana and her team.
+tools.py
+
+Contains the calculator tool used for mathematical requests.
+
+frontend/index.html
+
+Contains the Nexora user interface built with HTML, CSS, and JavaScript.
+
+requirements.txt
+
+Contains the Python dependencies required to run the project.
+
+.gitignore
+
+Prevents sensitive and temporary files from being committed to GitHub.
 
 Setup
 
 1. Clone the repository
 
-git clone https://github.com/YOUR-USERNAME/Nexora-AI-Agent.git
+git clone <your-repository>
 cd Nexora-AI-Agent
 
 2. Create a virtual environment
@@ -175,64 +165,93 @@ venv\Scripts\activate
 
 pip install -r requirements.txt
 
-4. Configure the API key
+4. Configure the Groq API key
 
-Create a file named .env in the project root:
+Create a .env file in the project root:
 
 GROQ_API_KEY=your_api_key_here
 
-Do not commit the .env file to GitHub.
+Do not upload the .env file to GitHub.
 
-5. Run the application
+5. Run Nexora
 
 python app.py
 
-Open the following address in a browser:
+Open the application in a browser:
 
 http://127.0.0.1:5000
 
+Example Requests
+
+General AI:
+
+Explain Kubernetes in simple words.
+
+Calculator:
+
+Calculate 245 * 67.
+
+Web Search:
+
+What are the latest AI agent trends in 2026?
+
+Project Assistance:
+
+Suggest a simple cloud project for college.
+
+Request Flow
+
+For a normal question:
+
+User
+  -> Router
+  -> AI Chat
+  -> Response
+
+For a calculation:
+
+User
+  -> Router
+  -> Calculator
+  -> Result
+  -> Response
+
+For current information:
+
+User
+  -> Router
+  -> Web Search
+  -> Search Result
+  -> Response
+
 Security
 
-The project uses a .gitignore file to prevent sensitive and temporary files from being uploaded.
+The Groq API key is stored in .env and excluded from version control.
 
-The following files and folders should remain local:
+The following files should not be committed:
 
 .env
 venv/
 __pycache__/
 *.pyc
 
-Never place an API key directly in source code.
+Never place an API key directly inside Python, HTML, CSS, or JavaScript source code.
 
-Project Structure
+Current Limitations
 
-Nexora-AI-Agent/
-|
-+-- agent.py
-+-- app.py
-+-- tools.py
-+-- requirements.txt
-+-- README.md
-+-- .gitignore
-|
-+-- frontend/
-    +-- index.html
+Nexora currently focuses on text-based interaction and provides three main capabilities: AI chat, calculation, and web search.
 
-Development
+Possible future additions include:
 
-Nexora was developed as a practical demonstration of an AI agent that combines natural language understanding, intelligent routing, external tools, and a web interface.
-
-The project can be extended with additional capabilities such as:
-
-File and document analysis
+PDF and document analysis
 
 Image understanding
 
 Voice input and output
 
-Database-backed conversation history
+Conversation history
 
-Authentication
+User authentication
 
 Additional external tools
 
@@ -240,6 +259,10 @@ Cloud deployment
 
 Multi-agent workflows
 
-Author
+Development
 
-Developed by Sunayana 
+Nexora was developed as a practical project to demonstrate how a language model can be combined with routing logic and external tools to create a useful AI agent.
+
+Developer
+
+Nexora was developed by Sunayana and her team.
